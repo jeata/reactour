@@ -80,4 +80,5 @@ export const defaultProps = {
   rounded: 0,
   accentColor: '#007aff',
   closeWithMask: true,
+  buttonAlign: 'right',
 }

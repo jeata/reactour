@@ -58,7 +58,11 @@ function App() {
           maskClassName="mask"
           className="helper"
           rounded={5}
-          accentColor={accentColor}
+          // accentColor={accentColor}
+          showNavigation={false}
+          prevButton={false}
+          showButtonNumber={true}
+          nextButton={'下一步'}
           CustomHelper={customComps ? MyCustomHelper : null}
         />
       </Suspense>

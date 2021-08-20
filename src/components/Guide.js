@@ -6,14 +6,14 @@ const Guide = styled.div`
   ${(props) =>
     props.defaultStyles
       ? `
-  max-width: 331px;
-  min-width: 150px;
+  max-width: 330px;
+  min-width: 200px;
   padding-right: 40px;
   border-radius: ${props.rounded}px;
-  background-color: #fff;
-  padding: 24px 30px;
+  background-color: #4b5563;
+  padding: 20px 26px;
   box-shadow: 0 0.5em 3em rgba(0, 0, 0, 0.3);
-  color: inherit;
+  color: #ffffff;
   `
       : ''}
   position: fixed;

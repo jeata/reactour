@@ -185,6 +185,7 @@ class Tour extends Component {
       this.calculateNode(node, step, cb)
     } else {
       this.setState(setNodeState(null, step, this.helper.current), stepCallback)
+      // stepCallback()
 
       step.selector &&
         console.warn(
@@ -318,9 +319,9 @@ class Tour extends Component {
   keyDownHandler = (e) => {
     const { onRequestClose, nextStep, prevStep, disableKeyboardNavigation } =
       this.props
-    e.stopPropagation()
 
     if (disableKeyboardNavigation === true) {
+      e.stopPropagation()
       return
     }
 
@@ -334,18 +335,21 @@ class Tour extends Component {
 
     if (e.keyCode === 27 && !isEscDisabled) {
       // esc
+      e.stopPropagation()
       e.preventDefault()
       onRequestClose()
     }
 
     if (e.keyCode === 39 && !isRightDisabled) {
       // right
+      e.stopPropagation()
       e.preventDefault()
       typeof nextStep === 'function' ? nextStep() : this.nextStep()
     }
 
     if (e.keyCode === 37 && !isLeftDisabled) {
       // left
+      e.stopPropagation()
       e.preventDefault()
       typeof prevStep === 'function' ? prevStep() : this.prevStep()
     }
@@ -378,6 +382,9 @@ class Tour extends Component {
       CustomHelper,
       disableFocusLock,
       highlightedBorder,
+      showButtonProgress,
+      showBadgeProgress,
+      buttonAlign,
     } = this.props
 
     const {
@@ -488,28 +495,36 @@ class Tour extends Component {
                           step: current + 1,
                         })
                       : steps[current].content)}
-                  {showNumber && (
+                  {showNumber && !showBadgeProgress && (
                     <Badge data-tour-elem="badge" accentColor={accentColor}>
                       {typeof badgeContent === 'function'
                         ? badgeContent(current + 1, steps.length)
                         : current + 1}
                     </Badge>
                   )}
+                  {showBadgeProgress && (
+                    <Badge data-tour-elem="badge" accentColor={accentColor}>
+                      {steps.length > 1
+                        ? current + 1 + '/' + steps.length
+                        : current + 1}
+                    </Badge>
+                  )}
                   {(showButtons || showNavigation) && (
                     <Controls data-tour-elem="controls">
-                      {showButtons && (
+                      {showButtons && typeof prevButton !== 'boolean' && (
                         <Arrow
                           onClick={
                             typeof prevStep === 'function'
                               ? prevStep
                               : this.prevStep
                           }
+                          accentColor={accentColor}
                           disabled={current === 0}
                           label={prevButton ? prevButton : null}
                         />
                       )}
 
-                      {showNavigation && (
+                      {showNavigation && steps.length > 0 && (
                         <Navigation data-tour-elem="navigation">
                           {steps.map((s, i) => (
                             <Dot
@@ -544,6 +559,11 @@ class Tour extends Component {
                           disabled={
                             !lastStepNextButton && current === steps.length - 1
                           }
+                          current={current}
+                          count={steps.length}
+                          showProgress={showButtonProgress}
+                          accentColor={accentColor}
+                          align={buttonAlign}
                           inverted
                           label={
                             lastStepNextButton && current === steps.length - 1

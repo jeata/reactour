@@ -8,7 +8,17 @@ const Label = styled.span`
   line-height: 1;
 `
 
-function Arrow({ className, onClick, inverted, label, disabled }) {
+function Arrow({
+  className,
+  onClick,
+  inverted,
+  label,
+  disabled,
+  accentColor,
+  showProgress,
+  current,
+  count,
+}) {
   return (
     <SvgButton
       className={className}
@@ -17,7 +27,12 @@ function Arrow({ className, onClick, inverted, label, disabled }) {
       disabled={disabled}
     >
       {label ? (
-        <Label>{label}</Label>
+        <Label>
+          {label}
+          {showProgress && count > 1
+            ? ' (' + (current + 1) + '/' + count + ')'
+            : null}
+        </Label>
       ) : (
         <svg viewBox="0 0 18.4 14.4">
           <path
@@ -44,12 +59,17 @@ Arrow.propTypes = {
   inverted: PropTypes.bool,
   label: PropTypes.node,
   disabled: PropTypes.bool,
+  accentColor: PropTypes.string,
+  showProgress: PropTypes.bool,
+  current: PropTypes.number,
+  count: PropTypes.number,
 }
 
 export default styled(Arrow)`
-  color: ${props => (props.disabled ? '#caccce' : '#646464')};
+  color: ${props => (props.disabled ? '#ccc' : '#fff')};
+  margin: 0 6px;
 
-  ${props => (props.inverted ? 'margin-left: 24px;' : 'margin-right: 24px;')};
+  /* ${props => (props.inverted ? 'margin-left: 24px;' : 'margin-right: 24px;')}; */
   ${props =>
     !props.label &&
     `
@@ -58,7 +78,23 @@ export default styled(Arrow)`
     flex: 0 0 16px;
   `};
 
+  ${props => 
+    props.label &&
+    `
+    border-radius: 3px;
+    padding: 6px 10px;
+    background-color: ${props.accentColor};
+  `};
+
+  ${props =>
+    props.align === 'right' &&
+    `
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+  `};
+
   &:hover {
-    color: ${props => (props.disabled ? '#caccce' : '#000')};
+    color: ${props => (props.disabled ? '#ccc' : '#fff')};
   }
 `

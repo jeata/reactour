@@ -1,14 +1,15 @@
 {
-  "name": "reactour",
+  "name": "@jeata/reactour",
   "version": "1.18.6",
   "description": "Tourist Guide into your React Components",
   "main": "dist/reactour.cjs.js",
   "module": "dist/reactour.esm.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "prepare": "npm run lib",
     "start": "webpack serve --mode development --open",
     "prelib": "rimraf dist",
-    "lib": "rollup -c",
+    "lib": "rollup -c && cp src/index.d.ts dist/",
     "build": "webpack --mode production",
     "lint": "eslint --fix ./; exit 0",
     "dev": "rollup -c -w"

@@ -6,6 +6,7 @@ const Navigation = styled.nav`
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
+  margin: 0 6px;
 `
 
 export default Navigation
