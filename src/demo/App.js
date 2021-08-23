@@ -63,6 +63,7 @@ function App() {
           prevButton={false}
           showButtonNumber={true}
           nextButton={'下一步'}
+          disableFocusLock={true}
           CustomHelper={customComps ? MyCustomHelper : null}
         />
       </Suspense>
@@ -129,7 +130,7 @@ function MyCustomHelper({ current, content, totalSteps, gotoStep, close }) {
 
 const tourConfig = [
   {
-    selector: '[data-tut="reactour__iso"]',
+    selector: '[data-tut="reactour__input"]',
     content:
       "Ok, let's start with the name of the Tour that is about to begin.",
   },

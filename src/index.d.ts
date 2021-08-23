@@ -317,6 +317,8 @@ export interface ReactourProps {
   showBadgeProgress?: boolean;
 
   buttonAlign?:string;
+
+  skipNotExistStep?:boolean;
 }
 
 export interface ReactourState {

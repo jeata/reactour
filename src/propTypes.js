@@ -63,6 +63,7 @@ export const propTypes = {
     color: PropTypes.string.isRequired,
     width: PropTypes.number.isRequired,
   }),
+  skipNotExistStep: PropTypes.bool,
 }
 
 export const defaultProps = {
@@ -81,4 +82,5 @@ export const defaultProps = {
   accentColor: '#007aff',
   closeWithMask: true,
   buttonAlign: 'right',
+  skipNotExistStep: false,
 }

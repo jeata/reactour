@@ -120,7 +120,7 @@ class Tour extends Component {
 
   showStep = () => {
     if (!this.helper || !this.helper.current) return
-    const { steps } = this.props
+    const { steps, skipNotExistStep } = this.props
     const { current, focusUnlocked } = this.state
     if (focusUnlocked) {
       this.setState({
@@ -184,8 +184,14 @@ class Tour extends Component {
       const cb = () => stepCallback(node)
       this.calculateNode(node, step, cb)
     } else {
-      this.setState(setNodeState(null, step, this.helper.current), stepCallback)
-      // stepCallback()
+      if (skipNotExistStep) {
+        stepCallback()
+      } else {
+        this.setState(
+          setNodeState(null, step, this.helper.current),
+          stepCallback
+        )
+      }
 
       step.selector &&
         console.warn(
@@ -321,7 +327,6 @@ class Tour extends Component {
       this.props
 
     if (disableKeyboardNavigation === true) {
-      e.stopPropagation()
       return
     }
 

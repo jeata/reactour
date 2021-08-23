@@ -24,6 +24,7 @@ export default function Demo({ openTour, isShowingMore, toggleShowMore }) {
         <Button h="4" onClick={openTour}>
           Try it
         </Button>
+        <input type="text" data-tut="reactour__input" />
         <Link
           color="dark"
           h="4"
